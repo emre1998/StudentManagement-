@@ -6,8 +6,11 @@ import com.App.StudentManagement.Model.User;
 import com.App.StudentManagement.Request.LoginRequest;
 import com.App.StudentManagement.Service.QuestionAnsweringService;
 import com.App.StudentManagement.Service.QuestionWritingService;
+import com.App.StudentManagement.Service.ScoreService;
 import com.App.StudentManagement.Service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@RequiredArgsConstructor
 
 @RestController
 @RequestMapping("/api")
@@ -22,6 +27,7 @@ public class AppController {
     private final UserService userService;
     private final QuestionWritingService questionWritingService;
     private final QuestionAnsweringService questionAnsweringService;
+    private final ScoreService scoreService;
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
@@ -93,10 +99,16 @@ public class AppController {
         }
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<Integer> getScoreByUserId(@PathVariable Long userId) {
+        int score = scoreService.getScoreByUserId(userId);
+        return ResponseEntity.ok(score);
+    }
 
-
-
-
-
+    @GetMapping("/question/{questionId}")
+    public ResponseEntity<Integer> getScoreByQuestionId(@PathVariable Long questionId) {
+        int score = scoreService.getScoreByQuestionId(questionId);
+        return ResponseEntity.ok(score);
+    }
 
 }
