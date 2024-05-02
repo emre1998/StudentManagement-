@@ -99,13 +99,13 @@ public class AppController {
         }
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/score/{userId}")
     public ResponseEntity<Integer> getScoreByUserId(@PathVariable Long userId) {
         int score = scoreService.getScoreByUserId(userId);
         return ResponseEntity.ok(score);
     }
 
-    @GetMapping("/question/{questionId}")
+    @GetMapping("/score/{questionId}")
     public ResponseEntity<Integer> getScoreByQuestionId(@PathVariable Long questionId) {
         int score = scoreService.getScoreByQuestionId(questionId);
         return ResponseEntity.ok(score);
